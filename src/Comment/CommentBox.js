@@ -4,16 +4,28 @@ import CommentForm from './CommentForm'
 import './Comment.css'
 
 class CommentBox extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      commentlist: this.props.data
+    };
+    this.addComment = this.addComment.bind(this);
+  }
+
+  addComment(obj) {
+    this.setState({
+      commentlist: [...this.state.commentlist,obj]
+    })
+    // props是只读的
+  }
+
   render() {
-    let commentList = [
-      {"name":"第一天","date":"2010-01-12","content":"真是开心的一天"},
-      {"name":"第二天","date":"2010-01-13","content":"真是开心的一天"},
-      {"name":"第三天","date":"2010-01-14","content":"真是开心的一天"}
-    ]
+
     return (
       <div className="box">
-        <CommentList list={commentList} />
-        <CommentForm />
+        <CommentList  data={this.state.commentlist} />
+        <CommentForm onAddComment={this.addComment} />
       </div>
     )
   }
